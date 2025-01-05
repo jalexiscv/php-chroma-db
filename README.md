@@ -54,6 +54,13 @@ $chromadb->collections()->get(
     collectionName: 'my_collection'
 );
 
+//Para obtener el ID de una colección conociendo su nombre, puedes usar el método get del recurso collections y luego acceder al ID de la colección desde la respuesta.
+$collectionName = 'my_collection';
+$collection = $chromadb->collections()->get(collectionName: $collectionName);
+$collectionId = $collection->json('id');
+echo "Collection ID: " . $collectionId;
+
+
 // Delete a collection by name
 $chromadb->collections()->delete(
     collectionName: 'my_collection'
