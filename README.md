@@ -222,6 +222,27 @@ foreach ($searchResponse->json('results') as $result) {
 }
 ```
 
+## Ver todos los documentos(items) en una colección
+```php
+$collection = $collections->get(collectionName: $collection_name);
+$collection_id = $collection->json('id');
+$all_items = [];
+$offset = 0;
+$limit = 5;
+$items = $chromadb->items()->get(collectionId: $collection_id,ids: array(),include: ['documents', 'metadatas'],limit: $limit,offset: $offset,);
+$data = $items->json();
+if($data !== null && isset($data['ids'])){
+    $all_items = array_merge($all_items, $data['ids']);
+    //$all_documents = array_merge($all_documents, $data['documents']??[]);
+    //$all_metadatas = array_merge($all_metadatas, $data['metadatas']??[]);
+    $offset += $limit;
+}else{
+    echo "No se encontraron items";
+}
+
+```
+
+
 ## Running ChromaDB in Docker
 
 To quickly get started with ChromaDB, you can run it in Docker
